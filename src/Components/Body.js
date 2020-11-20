@@ -9,6 +9,14 @@ class Body extends Component {
         { name: "EmployeePhone", width: "30%" },
         { name: "EmployeeEmail", width: "30%" }
     ]
+    componentDidMount() {
+        API.searchUsers().then(results => {
+
+            this.setState({
+                users: results.data.results
+            });
+        });
+    }
     render() {
 
         return (
@@ -19,9 +27,9 @@ class Body extends Component {
                             {this.headings.map(({ name, width }) => {
                                 return (
                                     <th
-                                    // className="col"
-                                    // key={name}
-                                    // style={{ width }}
+                                        className="col"
+                                        key={name}
+                                        style={{ width }}
 
 
                                     >
@@ -32,10 +40,27 @@ class Body extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {/* {this.state.users[0] !== undefined && this.state.users[0].name !== undefined ? (
-                            this.state.users.map(({ login, name, phone, email }))
-                        )
-                        } */}
+                        {this.state.users[0] !== undefined && this.state.users[0].name !== undefined ? (
+                            this.state.users.map(({ login, name, picture, phone, email }) => {
+                                return (
+                                    <tr key={login.uuid}>
+                                        <td data-th="Name" className="name-cell align-middle">
+                                            {name.first} {name.last}
+                                        </td>
+                                        <td data-th="Phone" className="align-middle">
+                                            {phone}
+                                        </td>
+                                        <td data-th="Email" className="align-middle">
+                                            <a href={"mailto:" + email} target="__blank">
+                                                {email}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                );
+                            })
+                        ) : (
+                                <></>
+                            )}
                     </tbody>
                 </table>
             </div>
