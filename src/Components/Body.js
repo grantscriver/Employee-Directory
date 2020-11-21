@@ -116,8 +116,6 @@ class Body extends Component {
                                             onClick={() => {
                                                 this.newSort(name)
                                             }}
-
-
                                         >
                                             {name}
                                             <span className="pointer"></span>
