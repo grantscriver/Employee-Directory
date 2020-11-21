@@ -25,7 +25,33 @@ class Body extends Component {
             })
         }
         // sort logic goes here
-        const sortedPhone = this.state.filteredUsers
+        const compareFunction = (a, b) => {
+            if (this.state.order === "ascend") {
+                if (a[event] === undefined) {
+                    return 1;
+                } else if (b[event] === undefined) {
+                    return -1;
+                }
+                else if (event === "Employee Phone") {
+                    return a[event].localeCompare(b[event]);
+                } else {
+                    return a[event] - b[event];
+                }
+            } else {
+                if (a[event] === undefined) {
+                    return 1;
+                } else if (b[event] === undefined) {
+                    return -1;
+                }
+                else if (event === "Employee Phone") {
+                    return b[event].localeCompare(a[event]);
+                } else {
+                    return b[event] - a[event];
+                }
+            }
+
+        }
+        const sortedPhone = this.state.filteredUsers.sort(compareFunction)
         this.setState({ filteredUsers: sortedPhone })
     }
     newSearch = event => {
