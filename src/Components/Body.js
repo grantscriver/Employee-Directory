@@ -9,10 +9,10 @@ class Body extends Component {
         sortOrder: "ascend"
     }
     headings = [
-        { name: "Employee Name", width: "25%" },
-        { name: "Employee Phone", width: "25%" },
-        { name: "Employee Email", width: "25%" },
-        { name: "Employee Nationality", width: "25%" }
+        { name: "name", width: "25%" },
+        { name: "phone", width: "25%" },
+        { name: "email", width: "25%" },
+        { name: "nat", width: "25%" }
     ]
     newSort = event => {
         if (this.state.order === "ascend") {
@@ -33,9 +33,19 @@ class Body extends Component {
                 } else if (b[event] === undefined) {
                     return -1;
                 }
-                else if (event === "Employee Phone") {
+                else if (event === "name") {
+                    return a[event].first.localeCompare(b[event].first);
+                }
+                else if (event === "phone") {
                     return a[event].localeCompare(b[event]);
-                } else {
+                }
+                else if (event === "email") {
+                    return a[event].localeCompare(b[event]);
+                }
+                else if (event === "nat") {
+                    return a[event].localeCompare(b[event]);
+                }
+                else {
                     return a[event] - b[event];
                 }
             } else {
@@ -44,9 +54,20 @@ class Body extends Component {
                 } else if (b[event] === undefined) {
                     return -1;
                 }
-                else if (event === "Employee Phone") {
+                else if (event === "name") {
+                    return b[event].first.localeCompare(a[event].first);
+                }
+                else if (event === "phone") {
                     return b[event].localeCompare(a[event]);
-                } else {
+                }
+                else if (event === "email") {
+                    return b[event].localeCompare(a[event]);
+                }
+                else if (event === "nat") {
+                    return b[event].localeCompare(a[event]);
+                }
+
+                else {
                     return b[event] - a[event];
                 }
             }

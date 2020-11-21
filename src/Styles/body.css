@@ -10,6 +10,6 @@
   
   .datatable .col .pointer:hover:after {
     font-size: 80%;
-    content: " v ";
+    content: " ▼ ";
     margin-right: 0;
   }
