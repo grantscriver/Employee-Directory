@@ -9,9 +9,10 @@ class Body extends Component {
         sortOrder: "ascend"
     }
     headings = [
-        { name: "Employee Name", width: "30%" },
-        { name: "Employee Phone", width: "30%" },
-        { name: "Employee Email", width: "30%" }
+        { name: "Employee Name", width: "25%" },
+        { name: "Employee Phone", width: "25%" },
+        { name: "Employee Email", width: "25%" },
+        { name: "Employee Nationality", width: "25%" }
     ]
     newSort = event => {
         if (this.state.order === "ascend") {
@@ -106,7 +107,7 @@ class Body extends Component {
                         </thead>
                         <tbody>
                             {this.state.filteredUsers[0] !== undefined && this.state.filteredUsers[0].name !== undefined ? (
-                                this.state.filteredUsers.map(({ login, name, picture, phone, email }) => {
+                                this.state.filteredUsers.map(({ login, name, picture, phone, email, nat }) => {
                                     return (
                                         <tr key={login.uuid}>
                                             <td data-th="Name" className="name-cell align-middle">
@@ -119,6 +120,9 @@ class Body extends Component {
                                                 <a href={"mailto:" + email} target="__blank">
                                                     {email}
                                                 </a>
+                                            </td>
+                                            <td data-th="Nat" className="align-middle">
+                                                {nat}
                                             </td>
                                         </tr>
                                     );
