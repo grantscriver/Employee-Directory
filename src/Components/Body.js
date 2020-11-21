@@ -1,16 +1,33 @@
 import React, { Component } from "react"
 import API from "../utils/API";
 import Nav from "../Components/Nav"
+import "../Styles/body.css";
 class Body extends Component {
     state = {
         users: [{}],
-        filteredUsers: [{}]
+        filteredUsers: [{}],
+        sortOrder: "ascend"
     }
     headings = [
         { name: "Employee Name", width: "30%" },
         { name: "Employee Phone", width: "30%" },
         { name: "Employee Email", width: "30%" }
     ]
+    newSort = event => {
+        if (this.state.order === "ascend") {
+            this.setState({
+                order: "descend"
+            })
+        }
+        else {
+            this.setState({
+                order: "ascend"
+            })
+        }
+        // sort logic goes here
+        const sortedPhone = this.state.filteredUsers
+        this.setState({ filteredUsers: sortedPhone })
+    }
     newSearch = event => {
         console.log(event.target.value);
         const filter = event.target.value;
@@ -36,48 +53,56 @@ class Body extends Component {
         return (
             <div>
                 <Nav newSearch={this.newSearch} />
-                <table id="table">
-                    <thead>
-                        <tr>
-                            {this.headings.map(({ name, width }) => {
-                                return (
-                                    <th
-                                        className="col"
-                                        key={name}
-                                        style={{ width }}
+                <div className="datatable mt-5">
+                    <table id="table"
+                        className="table table-striped table-bordered table-sm"
+                    >
+                        <thead>
+                            <tr>
+                                {this.headings.map(({ name, width }) => {
+                                    return (
+                                        <th
+                                            className="col"
+                                            key={name}
+                                            style={{ width }}
+                                            onClick={() => {
+                                                this.newSort(name)
+                                            }}
 
 
-                                    >
-                                        {name}
-                                    </th>
-                                )
-                            })}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.state.filteredUsers[0] !== undefined && this.state.filteredUsers[0].name !== undefined ? (
-                            this.state.filteredUsers.map(({ login, name, picture, phone, email }) => {
-                                return (
-                                    <tr key={login.uuid}>
-                                        <td data-th="Name" className="name-cell align-middle">
-                                            {name.first} {name.last}
-                                        </td>
-                                        <td data-th="Phone" className="align-middle">
-                                            {phone}
-                                        </td>
-                                        <td data-th="Email" className="align-middle">
-                                            <a href={"mailto:" + email} target="__blank">
-                                                {email}
-                                            </a>
-                                        </td>
-                                    </tr>
-                                );
-                            })
-                        ) : (
-                                <></>
-                            )}
-                    </tbody>
-                </table>
+                                        >
+                                            {name}
+                                            <span className="pointer"></span>
+                                        </th>
+                                    )
+                                })}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.filteredUsers[0] !== undefined && this.state.filteredUsers[0].name !== undefined ? (
+                                this.state.filteredUsers.map(({ login, name, picture, phone, email }) => {
+                                    return (
+                                        <tr key={login.uuid}>
+                                            <td data-th="Name" className="name-cell align-middle">
+                                                {name.first} {name.last}
+                                            </td>
+                                            <td data-th="Phone" className="align-middle">
+                                                {phone}
+                                            </td>
+                                            <td data-th="Email" className="align-middle">
+                                                <a href={"mailto:" + email} target="__blank">
+                                                    {email}
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    );
+                                })
+                            ) : (
+                                    <></>
+                                )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         )
     }
